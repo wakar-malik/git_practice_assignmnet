@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Form</title>
+  </head>
+  <body>
+    <input type="text" id="input" />
+    <button id="button" onclick="getValue()"></button>
+    <p>Entered Value: <span id="value"></span></p>
+
+    <script>
+      const btn = document.getElementById("button");
+      const input = document.getElementById("input");
+      const paragraph = document.getElementById("value");
+
+      btn.innerHTML = "Submit";
+
+      function getValue() {
+        if (!input.value) {
+          alert("please enter something");
+          return;
+        }
+
+        alert(input.value);
+        paragraph.innerText = input.value;
+      }
+    </script>
+  </body>
+</html>
