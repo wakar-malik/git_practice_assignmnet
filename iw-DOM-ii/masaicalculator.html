@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masai Calculator</title>
+    <style>
+      body {
+        display: grid;
+        align-content: flex-start;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      #heading {
+        color: #008181;
+        font-size: 60px;
+        text-align: center;
+        margin: 70px 0;
+      }
+
+      .calculator-container {
+        box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+      }
+
+      .calculator {
+        margin: 70px;
+      }
+
+      .calculator-container > .calculator {
+        display: grid;
+        grid-template-columns: repeat(4, 80px);
+        grid-template-rows: repeat(5, 80px);
+        gap: 15px;
+      }
+
+      .calculator-container > .calculator > .calc-btn {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        border-radius: 12px;
+        font-weight: 800;
+        box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
+      }
+
+      .calculator-container > .calculator > .calc-btn:nth-child(1) {
+        grid-column-end: span 4;
+        margin-bottom: 10px;
+      }
+
+      .calculator-container > .calculator > .calc-btn:nth-child(5),
+      .calc-btn:nth-child(9),
+      .calc-btn:nth-child(13),
+      .calc-btn:nth-child(13),
+      .calc-btn:nth-child(16),
+      .calc-btn:nth-child(17) {
+        color: #fff;
+        background-color: #000;
+      }
+
+      .calculator-container > .calculator > .calc-btn:nth-child(14) {
+        color: #fff;
+        background-color: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="heading">Masai Calculator</h1>
+    <div class="calculator-container">
+      <div class="calculator">
+        <div class="calc-btn"></div>
+        <div class="calc-btn">1</div>
+        <div class="calc-btn">2</div>
+        <div class="calc-btn">3</div>
+        <div class="calc-btn">+</div>
+        <div class="calc-btn">4</div>
+        <div class="calc-btn">5</div>
+        <div class="calc-btn">6</div>
+        <div class="calc-btn">-</div>
+        <div class="calc-btn">7</div>
+        <div class="calc-btn">8</div>
+        <div class="calc-btn">9</div>
+        <div class="calc-btn">x</div>
+        <div class="calc-btn">C</div>
+        <div class="calc-btn">0</div>
+        <div class="calc-btn">=</div>
+        <div class="calc-btn">/</div>
+      </div>
+    </div>
+  </body>
+</html>

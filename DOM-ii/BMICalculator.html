@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI calculator</title>
+    <style>
+      label,
+      input {
+        display: inline-block;
+        margin-bottom: 1.2rem;
+      }
+      label {
+        font-size: 1.6rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Check you BMI</h1>
+    <p>Enter your weight and height below to check your BMI results.</p>
+    <form>
+      <label for="weight">Put your weight in here (KG)</label><br />
+      <input
+        id="weight"
+        type="text"
+        type="number"
+        placeholder="weight in kgs"
+      /><br />
+      <label for="weight">And your height in here (CM)</label><br />
+
+      <input
+        id="height"
+        type="text"
+        type="number"
+        placeholder="height in meters"
+      /><br />
+      <input type="submit" value="Calculate BMI" />
+    </form>
+    <p class="result"></p>
+    <script>
+      let BMI = 0;
+      const form = document.querySelector("form");
+      const weight = document.querySelector("#weight");
+      const height = document.querySelector("#height");
+      const result = document.querySelector(".result");
+      const bmiSpan = document.querySelector(".bmi");
+      const typeSpan = document.querySelector(".type");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // if (weight.value === "" && height.value === "") {
+        //   alert("Please provide some values as number!");
+        //   return;
+        // } else
+
+        const weightValue = +weight.value > 0;
+        const heightValue = +height.value > 0;
+
+        if (!weightValue || !heightValue) {
+          alert("Both input should be a positive number!");
+          return;
+        }
+
+        BMI = +weight.value / (+height.value * +height.value);
+
+        if (BMI <= 18.4) {
+          result.innerText = `Your BMI is ${Math.floor(
+            BMI
+          )} which means you are UnderWeight`;
+        } else if (BMI >= 18.5 && BMI <= 24.9) {
+          result.innerText = `Your BMI is ${Math.floor(
+            BMI
+          )} which means you are Normal Weight`;
+        } else if (BMI >= 25 && BMI <= 29.9) {
+          result.innerText = `Your BMI is ${Math.floor(
+            BMI
+          )} which means you are OverWeight`;
+        } else if (BMI >= 30) {
+          result.innerText = `Your BMI is ${Math.floor(
+            BMI
+          )} which means you are Obese`;
+        }
+
+        weight.value = height.value = "";
+      });
+    </script>
+  </body>
+</html>

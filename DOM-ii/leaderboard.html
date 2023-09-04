@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIN & MAX LEADERBOARD (DOM)</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 400px;
+        margin: auto;
+      }
+      .min-max-container {
+        display: grid;
+        grid-template-columns: 140px 120px;
+        grid-template-rows: 120px;
+        justify-content: space-between;
+      }
+
+      .min-max-container > div {
+        display: grid;
+        place-items: center;
+        font-size: 1.6rem;
+        font-weight: 800;
+      }
+      .min,
+      .max {
+        border: 2px solid;
+        width: 100%;
+        height: 80px;
+        font-size: 2rem;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+      .min {
+        background-color: red;
+      }
+      .max {
+        background-color: green;
+      }
+      .score-container {
+        display: grid;
+        place-items: center;
+        margin-top: 2rem;
+      }
+      .score-container p {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+
+      .score {
+        width: 60%;
+        height: 90px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-align: center;
+        border: 2px solid #000;
+        color: #000;
+      }
+      .btn-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        width: 60%;
+        margin: auto;
+      }
+      .btn-container > div {
+        border: 2px solid #000;
+        display: grid;
+        place-items: center;
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+        font-weight: 700;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .btn-container > div:nth-child(1),
+      .btn-container > div:nth-child(3),
+      .btn-container > div:nth-child(7),
+      .btn-container > div:nth-child(9) {
+        background-color: #668100;
+      }
+
+      .btn-container > div:nth-child(2),
+      .btn-container > div:nth-child(4),
+      .btn-container > div:nth-child(5),
+      .btn-container > div:nth-child(6),
+      .btn-container > div:nth-child(8) {
+        background-color: #f60;
+      }
+
+      .btn-container > div:nth-child(9) {
+        background-color: #820263;
+        color: #fff;
+      }
+
+      button {
+        display: block;
+        margin: 2rem auto 0;
+        padding: 1rem 2rem;
+        font-weight: 800;
+        color: #fff;
+        background-color: #000;
+        width: 60%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="min-max-container">
+        <div>
+          <div class="min"></div>
+          <p>MIN</p>
+        </div>
+
+        <div>
+          <div class="max"></div>
+          <p>MAX</p>
+        </div>
+      </div>
+
+      <div class="score-container">
+        <p>SCORE</p>
+        <div class="score">#</div>
+      </div>
+
+      <div class="btn-container">
+        <div class="btn">1</div>
+        <div class="btn">2</div>
+        <div class="btn">3</div>
+        <div class="btn">4</div>
+        <div class="btn">5</div>
+        <div class="btn">6</div>
+        <div class="btn">7</div>
+        <div class="btn">8</div>
+        <div class="btn">9</div>
+        <div class="btn">0</div>
+      </div>
+
+      <button>ENTER</button>
+    </div>
+  </body>
+
+  <script>
+    const btnContainer = document.querySelector(".btn-container");
+    const score = document.querySelector(".score");
+    const enterBtn = document.querySelector("button");
+    const min = document.querySelector(".min");
+    const max = document.querySelector(".max");
+
+    let num = "";
+
+    btnContainer.addEventListener("click", function (e) {
+      const target = e.target.closest(".btn");
+
+      if (!target) return;
+
+      num += e.target.textContent;
+
+      score.innerText = num;
+    });
+
+    enterBtn.addEventListener("click", function () {
+      const minValue =
+        min.innerText === "" || +score.innerText <= +min.innerText;
+
+      const maxValue =
+        max.innerText === "" || +score.innerText >= +max.innerText;
+
+      if (minValue) {
+        min.innerText = score.innerText;
+      }
+
+      if (maxValue) {
+        max.innerText = score.innerText;
+      }
+
+      score.innerText = "";
+      num = "";
+    });
+  </script>
+</html>

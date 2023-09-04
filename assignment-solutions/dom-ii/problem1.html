@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // - Given an object of student grades and their marks in the mentioned below format, print the highest scored student for each grade along with the total
+
+      // - Sample Input
+      //   V - Prateek - 90;
+      //   VI - Albert - 90;
+      //   VII - Sandhya - 90;
+
+      const studentsData = [
+        {
+          grade: "V",
+          students: [
+            { name: "Nrupul", marks: [10, 20, 30] },
+            { name: "Prateek", marks: [20, 30, 40] },
+          ],
+        },
+        {
+          grade: "VI",
+          students: [
+            { name: "Aman", marks: [10, 20, 30] },
+            { name: "Albert", marks: [20, 30, 40] },
+          ],
+        },
+        {
+          grade: "VII",
+          students: [
+            { name: "Yogesh", marks: [10, 20, 30] },
+            { name: "Sandhya", marks: [20, 30, 40] },
+          ],
+        },
+      ];
+
+      for (let i = 0; i <= studentsData.length - 1; i++) {
+        let sum1 = 0;
+        let sum2 = 0;
+        for (let j = 0; j <= studentsData[i].students.length - 1; j++) {
+          for (
+            let k = 0;
+            k <= studentsData[i].students[j].marks.length - 1;
+            k++
+          ) {
+            if (j === 0) {
+              sum1 += studentsData[i].students[j].marks[k];
+            }
+            if (j === 1) {
+              sum2 += studentsData[i].students[j].marks[k];
+            }
+          }
+          if (sum1 > sum2) {
+            console.log(`${studentsData[i].grade} - ${studentsData[i].grade}`);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
