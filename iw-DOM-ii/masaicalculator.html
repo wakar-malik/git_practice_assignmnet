@@ -5,88 +5,199 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Masai Calculator</title>
     <style>
-      body {
-        display: grid;
-        align-content: flex-start;
-        justify-content: center;
-        height: 100vh;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-
-      #heading {
-        color: #008181;
-        font-size: 60px;
+      .heading {
         text-align: center;
-        margin: 70px 0;
+        margin: 2rem;
+        font-style: 3rem;
+        text-align: center;
       }
-
-      .calculator-container {
-        box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
-      }
-
-      .calculator {
-        margin: 70px;
-      }
-
-      .calculator-container > .calculator {
+      .calculatorContainer {
+        width: 25vw;
+        background: #fff;
         display: grid;
-        grid-template-columns: repeat(4, 80px);
-        grid-template-rows: repeat(5, 80px);
-        gap: 15px;
-      }
-
-      .calculator-container > .calculator > .calc-btn {
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        font-size: 28px;
+        grid-template-columns: repeat(4, 100px);
+        grid-template-rows: repeat(6, 100px);
+        margin: 2rem auto;
+        padding: 1.5rem;
+        gap: 10px;
         border-radius: 12px;
-        font-weight: 800;
-        box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 4px 8px 0px #32323233, inset 0px 4px 8px 0px #32323233;
       }
-
-      .calculator-container > .calculator > .calc-btn:nth-child(1) {
-        grid-column-end: span 4;
-        margin-bottom: 10px;
+      .calculatorContainer .calculationOutput {
+        background-color: #fff;
+        box-shadow: 0px 4px 8px 0px #32323233;
+        grid-column: 1/5;
+        color: #000;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 2.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        word-break: break-all;
+        word-wrap: break-word;
       }
-
-      .calculator-container > .calculator > .calc-btn:nth-child(5),
-      .calc-btn:nth-child(9),
-      .calc-btn:nth-child(13),
-      .calc-btn:nth-child(13),
-      .calc-btn:nth-child(16),
-      .calc-btn:nth-child(17) {
+      .calculatorContainer button {
+        font-size: 2rem;
+        font-weight: 700;
+        border: none;
+        box-shadow: 0px 4px 8px 0px #ededed;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .operationBtn {
+        background-color: black;
         color: #fff;
-        background-color: #000;
       }
-
-      .calculator-container > .calculator > .calc-btn:nth-child(14) {
+      .red {
+        background-color: red;
         color: #fff;
-        background-color: #ff0000;
+      }
+      .number,
+      #decimalBtn {
+        background-color: #f7f3f8;
+      }
+      .span-two {
+        grid-column: span 2;
       }
     </style>
   </head>
   <body>
-    <h1 id="heading">Masai Calculator</h1>
-    <div class="calculator-container">
-      <div class="calculator">
-        <div class="calc-btn"></div>
-        <div class="calc-btn">1</div>
-        <div class="calc-btn">2</div>
-        <div class="calc-btn">3</div>
-        <div class="calc-btn">+</div>
-        <div class="calc-btn">4</div>
-        <div class="calc-btn">5</div>
-        <div class="calc-btn">6</div>
-        <div class="calc-btn">-</div>
-        <div class="calc-btn">7</div>
-        <div class="calc-btn">8</div>
-        <div class="calc-btn">9</div>
-        <div class="calc-btn">x</div>
-        <div class="calc-btn">C</div>
-        <div class="calc-btn">0</div>
-        <div class="calc-btn">=</div>
-        <div class="calc-btn">/</div>
+    <h1 class="heading">Masai Calculator</h1>
+    <div class="calculatorContainer">
+      <div class="calculationOutput">
+        <div id="result"></div>
       </div>
+      <button id="clearBtn" class="span-two red">C</button>
+      <button class="number" id="deleteBtn">&larr;</button>
+      <button class="operationBtn" id="divideBtn">/</button>
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operationBtn" id="multiplyBtn">*</button>
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operationBtn" id="subtractBtn">-</button>
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="operationBtn" id="addBtn">+</button>
+      <button class="number">0</button>
+      <button id="decimalBtn">.</button>
+      <button id="equalBtn" class="span-two operationBtn">=</button>
     </div>
+
+    <script>
+      const clearBtn = document.getElementById("clearBtn");
+      const deleteBtn = document.getElementById("deleteBtn");
+      const divideBtn = document.getElementById("divideBtn");
+      const multiplyBtn = document.getElementById("multiplyBtn");
+      const subtractBtn = document.getElementById("subtractBtn");
+      const addBtn = document.getElementById("addBtn");
+      const decimalBtn = document.getElementById("decimalBtn");
+      const equalBtn = document.getElementById("equalBtn");
+      const numbersBtn = document.querySelectorAll(".number");
+      const resultElement = document.getElementById("result");
+
+      let result = "";
+      let operationSymbol = "";
+      let previousSymbol = 0;
+
+      const appendNumber = (number) => {
+        if (number === "." && result.includes(".")) return;
+
+        result += number;
+        updateDisplay();
+      };
+
+      const updateDisplay = () => {
+        if (operationSymbol) {
+          resultElement.innerText = `${previousSymbol} ${operationSymbol} ${result}`;
+        } else {
+          resultElement.innerText = result;
+        }
+      };
+
+      const selectOperator = (operatorValue) => {
+        if (result === "") return;
+
+        if (operationSymbol !== "" && previousSymbol !== "") {
+          calculateResult();
+        }
+
+        operationSymbol = operatorValue;
+        previousSymbol = result;
+        result = "";
+        updateDisplay();
+      };
+
+      // function to calculate result
+
+      const calculateResult = () => {
+        let evaluateResult;
+        let prev = parseFloat(previousSymbol);
+        let current = parseFloat(result);
+
+        if (isNaN(prev) || isNaN(current)) return;
+
+        if (operationSymbol === "+") {
+          evaluateResult = prev + current;
+        } else if (operationSymbol === "-") {
+          evaluateResult = prev - current;
+        } else if (operationSymbol === "*") {
+          evaluateResult = prev * current;
+        } else if (operationSymbol === "/") {
+          evaluateResult = prev / current;
+        }
+
+        result = evaluateResult.toString();
+        operationSymbol = "";
+        previousSymbol = "";
+      };
+
+      // Add Event Listner to number
+      numbersBtn.forEach((button) => {
+        button.addEventListener("click", () => {
+          appendNumber(button.innerText);
+        });
+      });
+
+      // function to clear Display
+      const clearDisplay = () => {
+        operationSymbol = previousSymbol = result = "";
+
+        updateDisplay();
+      };
+
+      // function to deleteLastDigit
+
+      const deleteLastDigit = () => {
+        if (result === "") return;
+
+        result = result.slice(0, -2);
+        updateDisplay();
+      };
+
+      decimalBtn.addEventListener("click", () => appendNumber("."));
+      addBtn.addEventListener("click", () => selectOperator("+"));
+      subtractBtn.addEventListener("click", () => selectOperator("-"));
+      multiplyBtn.addEventListener("click", () => selectOperator("*"));
+      divideBtn.addEventListener("click", () => selectOperator("/"));
+      equalBtn.addEventListener("click", () => {
+        if (result === "") return;
+        calculateResult();
+        updateDisplay();
+      });
+
+      clearBtn.addEventListener("click", clearDisplay);
+      deleteBtn.addEventListener("click", deleteLastDigit);
+    </script>
   </body>
 </html>
