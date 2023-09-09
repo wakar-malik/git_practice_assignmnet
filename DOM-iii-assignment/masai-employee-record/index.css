@@ -1,0 +1,71 @@
+/* Fill CSS here */
+.container {
+  display: grid;
+  grid-template-columns: 350px 900px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 5rem;
+}
+
+.container form {
+  padding: 2rem;
+  box-shadow: 0 0 10px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container form input {
+  width: 95%;
+}
+
+.container form input[type="submit"] {
+  width: 100%;
+  background-color: #2b619e;
+  border: none;
+  margin-top: 1rem;
+  border-radius: 2rem;
+  color: #fff;
+  padding: 0.5rem 0;
+}
+
+.container form input,
+select {
+  padding: 0.4rem;
+}
+
+.container form select {
+  width: 100%;
+}
+
+.container form label {
+  margin: 1rem 0 0.3rem;
+  display: inline-block;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table,
+tr,
+td,
+th {
+  border: 1px solid #c3c3c3;
+  padding: 1rem;
+}
+
+table th {
+  background-color: #2b619e;
+  color: #fff;
+}
+
+.deleteBtn {
+  background-color: red;
+  padding: 1rem 1rem;
+  border: none;
+}
+
+@media screen and (max-width: 990px) {
+  .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
