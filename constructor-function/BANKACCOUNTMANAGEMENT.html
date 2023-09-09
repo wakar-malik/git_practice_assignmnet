@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bank Account Management</title>
+  </head>
+  <body>
+    <script>
+      function BankAccount(accountNumber, name, type, balance) {
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.type = type;
+        this.balance = balance;
+      }
+
+      BankAccount.prototype.deposit = function (depositAmount) {
+        this.balance += depositAmount;
+      };
+      BankAccount.prototype.withdraw = function (withdrawAmount) {
+        this.balance -= withdrawAmount;
+      };
+      BankAccount.prototype.checkBalance = function () {
+        console.log(this.balance);
+      };
+      BankAccount.prototype.isActive = function () {};
+
+      const bank1 = new BankAccount(16628983, "Steven", "active", 20);
+      const bank2 = new BankAccount(95951488, "John", "inactive", 90);
+      const bank3 = new BankAccount(62659410, "Mark", "active", 0);
+
+      console.log(bank1);
+      console.log(bank2);
+      console.log(bank3);
+    </script>
+  </body>
+</html>

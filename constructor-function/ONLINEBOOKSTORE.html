@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Bookstore</title>
+  </head>
+  <body>
+    <script>
+      function Author(name, birthYear, nationality) {
+        this.name = name;
+        this.birthYear = birthYear;
+        this.nationality = nationality;
+      }
+
+      function Book(title, author, genre, price) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.price = price;
+      }
+
+      Book.prototype.getBookInfo = function () {
+        console.log(
+          `Title = ${this.title}, Author = ${this.author}, Genre = ${this.genre}, Price = ${this.price}`
+        );
+      };
+
+      const author1 = new Author("Steven", 1996, "American");
+      const book1 = new Book("To Kill a Mockingbird", "shawn", "Novel", "$30");
+
+      const author2 = new Author("Peter", 1990, "Canadian");
+      const book2 = new Book("Beloved", "John", "Narrative", "$50");
+
+      book1.getBookInfo();
+      book2.getBookInfo();
+    </script>
+  </body>
+</html>
