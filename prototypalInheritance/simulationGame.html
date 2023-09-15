@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIMULATION GAME</title>
+  </head>
+  <body>
+    <script>
+      const Vehicle = function (brand, model, speed, fuelType) {
+        this.brand = brand;
+        this.model = model;
+        this.speed = speed;
+        this.fuelType = fuelType;
+      };
+
+      Vehicle.prototype.accelerate = function () {
+        this.speed++;
+        console.log(this.speed);
+      };
+      Vehicle.prototype.brake = function () {
+        this.speed--;
+        console.log(this.speed);
+      };
+      Vehicle.prototype.refuel = function () {
+        console.log("Vehicle is refueling...");
+      };
+
+      const Car = function (brand, model, speed, fuelType, numberOfWheels) {
+        Vehicle.call(brand, model, speed, fuelType);
+        this.numberOfWheels = numberOfWheels;
+      };
+
+      Car.prototype = Object.create(Vehicle.prototype);
+
+      Car.prototype.honk = function () {
+        console.log("peep peep.....");
+      };
+
+      const Airplane = function (
+        brand,
+        model,
+        speed,
+        fuelType,
+        numberOfEngines,
+        hasLandingGear
+      ) {
+        Vehicle.call(brand, model, speed, fuelType);
+        this.numberOfEngines = numberOfEngines;
+        this.hasLandingGear = hasLandingGear;
+      };
+
+      Airplane.prototype = Object.create(Vehicle.prototype);
+
+      Airplane.prototype.takeOff = function () {
+        console.log("Airplane is taking off...");
+      };
+
+      const bugatti = new Car("Bugatti", 2023, "200kmph", "Diesel", 4);
+
+      const indianAirline = new Airplane(
+        "Indian Airline",
+        2023,
+        "200kmph",
+        "Diesel",
+        3
+      );
+
+      console.log("-----car-----");
+      bugatti.accelerate();
+      bugatti.brake();
+      bugatti.refuel();
+      bugatti.honk();
+
+      console.log("-----airplane-----");
+      indianAirline.accelerate();
+      indianAirline.brake();
+      indianAirline.refuel();
+      indianAirline.takeOff();
+    </script>
+  </body>
+</html>

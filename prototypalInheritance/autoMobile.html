@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AUTOMOBILE INHERITANCE MODEL</title>
+  </head>
+  <body></body>
+  <script>
+    // constructor function
+    const Car = function (color, seats, speed, model) {
+      this.color = color;
+      this.seats = seats;
+      this.speed = speed;
+      this.model = model;
+    };
+
+    const TataNano = function (color, seats, speed, model, name) {
+      Car.call(this, color, seats, speed, model);
+      this.name = name;
+    };
+
+    const nano = new TataNano("Red", 4, "100kmph", 2023, "Tata Nano");
+
+    console.log(nano);
+
+    // object.create()
+    const obj = {
+      color: "red",
+      seats: 4,
+      speed: "120kmph",
+      model: 2023,
+      name: "Tata Nano",
+    };
+
+    const nano2 = Object.create(obj);
+
+    console.log(nano2.color);
+    console.log(nano2.seats);
+    console.log(nano2.speed);
+    console.log(nano2.model);
+    console.log(nano2.name);
+  </script>
+</html>
