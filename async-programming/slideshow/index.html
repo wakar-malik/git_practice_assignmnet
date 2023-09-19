@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>slideshow</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #slideContainer {
+        width: 50%;
+        margin: auto;
+      }
+      img {
+        height: 550px;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      #btnContainer {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        padding: 0px 20px;
+      }
+      button {
+        padding: 1rem 2rem;
+        margin-right: 10px;
+        background-color: brown;
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slideContainer">
+      <img src="" alt="" />
+    </div>
+    <div id="btnContainer">
+      <button id="pre">Previous</button>
+      <button id="stop">Stop</button>
+      <button id="start">Start</button>
+      <button id="next">Next</button>
+    </div>
+  </body>
+  <script>
+    let img = document.querySelector("img");
+    let pre = document.getElementById("pre");
+    let nex = document.getElementById("next");
+    let stp = document.getElementById("stop");
+    let strt = document.getElementById("start");
+
+    pre.addEventListener("click", previous);
+    nex.addEventListener("click", next);
+    stp.addEventListener("click", stop);
+    strt.addEventListener("click", start);
+
+    let imagesData = [
+      "Images/img1.jpg",
+      "Images/img2.jpg",
+      "Images/img3.jpg",
+      "Images/img4.jpg",
+      "Images/img5.jpg",
+      "Images/img6.jpg",
+      "Images/img7.jpg",
+      "Images/img8.jpg",
+      "Images/img9.jpg",
+      "Images/img10.jpg",
+    ];
+
+    let currentImg = 0;
+
+    let slideInterval = null;
+
+    slideInterval = setInterval(slider, 2500);
+
+    function slider() {
+      currentImg++;
+      img.setAttribute("src", images[currentImg]);
+
+      if (currentImg == images.length) {
+        currentImg = 0;
+      }
+    }
+
+    function previous() {
+      clearInterval(slideInterval);
+      currentImg--;
+      img.setAttribute("src", images[currentImg]);
+
+      if (currentImg == -1) {
+        currentImg = images.length - 1;
+      }
+    }
+    function next() {
+      clearInterval(slideInterval);
+      currentImg++;
+      img.setAttribute("src", images[currentImg]);
+
+      if (currentImg == images.length) {
+        currentImg = 0;
+      }
+    }
+
+    function stop() {
+      clearInterval(slideInterval);
+      strt.disabled = false;
+    }
+
+    function start() {
+      setInterval(slider, 2500);
+
+      function slider() {
+        currentImg++;
+        img.setAttribute("src", images[currentImg]);
+
+        if (currentImg == images.length) {
+          currentImg = 0;
+        }
+      }
+      strt.disabled = true;
+    }
+  </script>
+</html>

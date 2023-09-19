@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Timer</title>
+    <style>
+      .timerContainer {
+        width: 50%;
+        margin: auto;
+      }
+
+      .btnContainer {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+      }
+
+      label {
+        margin-left: 3rem;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .displayContainer {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2rem;
+      }
+      .inputTime {
+        display: flex;
+        justify-content: center;
+      }
+
+      button {
+        padding: 1rem 2rem;
+        margin-right: 10px;
+        background-color: brown;
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timerContainer">
+      <h1>Timer</h1>
+      <div class="displayContainer">
+        <span id="display">00:00:00</span>
+      </div>
+
+      <div class="container">
+        <div class="inputTime">
+          <label for="input">Hr</label>
+          <input type="number" placeholder="00" min="0" id="hr" />
+          <label for="input">Min</label>
+          <input type="number" placeholder="00" min="0" max="59" id="min" />
+          <label for="input">Sec</label>
+          <input type="number" placeholder="00" min="0" max="59" id="sec" />
+        </div>
+      </div>
+
+      <div class="btnContainer">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+
+    <script>
+      let hr = document.getElementById("hr");
+      let min = document.getElementById("min");
+      let sec = document.getElementById("sec");
+
+      let startBtn = document.getElementById("start");
+      let stopBtn = document.getElementById("stop");
+      let resetBtn = document.getElementById("reset");
+
+      startBtn.addEventListener("click", start);
+      stopBtn.addEventListener("click", stop);
+      resetBtn.addEventListener("click", reset);
+
+      let temp = null;
+      let flag = false;
+
+      function start() {
+        flag = true;
+        let seconds = sec.value;
+        let minutes = min.value;
+        let hours = hr.value;
+
+        let totalTimeInSeconds = +hours * 3600 + +minutes * 60 + +seconds;
+        console.log(+hours + +minutes + +seconds);
+        console.log(totalTimeInSeconds);
+        if (totalTimeInSeconds <= 0) {
+          alert("Please enter a valid time!");
+          return;
+        }
+
+        startBtn.disabled = true;
+
+        temp = setInterval(() => {
+          totalTimeInSeconds--;
+          let m = Math.floor((totalTimeInSeconds % 3600) / 60);
+          let h = Math.floor(totalTimeInSeconds / 3600);
+          let s = totalTimeInSeconds % 60;
+
+          document.getElementById("display").innerText = `${formatTime(
+            h
+          )}:${formatTime(m)}:${formatTime(s)}`;
+        }, 1000);
+      }
+      function stop() {
+        flag = false;
+        clearInterval(temp);
+        startBtn.disabled = false;
+      }
+      function reset() {
+        flag = false;
+        clearInterval(temp);
+        document.getElementById("display").innerText = "00:00:00";
+        startBtn.disabled = false;
+      }
+
+      function formatTime(time) {
+        return time < 10 ? `0${time}` : time;
+      }
+    </script>
+  </body>
+</html>
