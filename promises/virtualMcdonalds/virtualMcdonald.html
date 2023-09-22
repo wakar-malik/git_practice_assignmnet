@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Virtual McDonald's</title>
+    <style>
+      .container {
+        width: 60%;
+        margin: auto;
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding: 2rem;
+        border-radius: 1rem;
+      }
+      .title {
+        font-family: monospace;
+        color: orangered;
+        font-size: 3rem;
+      }
+      .foodTitle {
+        font-family: monospace;
+        color: orangered;
+        font-size: 2rem;
+      }
+      .orderButton {
+        font-size: 1.5rem;
+        padding: 0.5rem 2rem;
+        border-radius: 0.3rem;
+        border: none;
+        color: white;
+        background-color: #649a38;
+        cursor: pointer;
+        margin: 2rem auto;
+      }
+      .foodImageContainer {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+      .orderButton:hover {
+        background-color: #4a6f2b;
+      }
+
+      #orderId {
+        color: #ff0000;
+      }
+
+      input {
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Welcome To My Virtual McDonald's</h1>
+      <form>
+        <p class="foodTitle">Select your food items:</p>
+        <label for="burger">Burger</label>
+        <input type="checkbox" id="burger" name="food" value="Burger" /><br />
+
+        <label for="fries">Fries</label>
+        <input type="checkbox" id="fries" name="food" value="Fries" /><br />
+
+        <label for="drink">Drink</label>
+        <input type="checkbox" id="drink" name="food" value="Drink" /><br />
+      </form>
+
+      <button class="orderButton">Order Food</button>
+
+      <div class="foodImageContainer"></div>
+
+      <h1 id="orderId"></h1>
+    </div>
+    <script>
+      const foodImageContainer = document.querySelector(".foodImageContainer");
+      const orderIdElement = document.getElementById("orderId");
+      let html = "";
+
+      function generateOrderID() {
+        return Math.floor(Math.random() * 1000);
+      }
+
+      document.querySelector(".orderButton").addEventListener("click", () => {
+        const selectedFoodItems = document.querySelectorAll(
+          "input[name='food']:checked"
+        );
+
+        if (selectedFoodItems.length === 0) {
+          alert("Please select at least one food item!");
+          return;
+        }
+
+        const orderId = generateOrderID();
+
+        foodImageContainer.innerHTML = "";
+        html = "";
+
+        selectedFoodItems.forEach(
+          (element) =>
+            (html += `<img src="./images/${element.id}.jpg" alt="Food Image" class="foodImage" width="40%"/>`)
+        );
+
+        const orderPromise = new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, 200);
+        });
+
+        orderPromise.then(() => {
+          foodImageContainer.insertAdjacentHTML("afterbegin", html);
+          orderIdElement.textContent = `Order ID: ${orderId}`;
+        });
+      });
+    </script>
+  </body>
+</html>

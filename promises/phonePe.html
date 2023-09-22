@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhonePe</title>
+    <style>
+      .output {
+        width: 300px;
+        height: 400px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .output-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+      }
+
+      .head {
+        width: 100%;
+        height: 2rem;
+      }
+
+      .message {
+        margin-top: 3rem;
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .spinner {
+        height: 6rem;
+        width: 6rem;
+        margin: auto;
+        border-radius: 100%;
+        border: 3px solid;
+        border-color: #ff9901 #ededed #ededed;
+        animation-name: spinner;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+
+      @keyframes spinner {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      label {
+        font-size: 2rem;
+      }
+      input {
+        font-size: 1.2rem;
+        padding: 0.6rem;
+        margin-bottom: 2rem;
+      }
+
+      .submit {
+        padding: 0.8rem 2rem;
+        font-size: 1.2rem;
+        border: none;
+        background-color: #ff9901;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <label for="name">Name</label><br />
+      <input type="text" id="name" /><br />
+
+      <label for="amount">Amount</label><br />
+      <input type="number" id="amount" /><br />
+
+      <input type="submit" value="Pay" class="submit" />
+    </form>
+
+    <div class="output">
+      <div class="output-head"></div>
+      <div class="output-body"></div>
+    </div>
+
+    <script>
+      const form = document.querySelector("form");
+      const name = document.querySelector("#name");
+      const amount = document.querySelector("#amount");
+      const output = document.querySelector(".output");
+      const outputBody = document.querySelector(".output-body");
+      const outputHead = document.querySelector(".output-head");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (name.value === "" || amount.value === "") {
+          alert("Please fill proper details!");
+          return;
+        }
+
+        const randomNum = Math.random();
+        html = "";
+
+        const payPromise = new Promise((resolve, reject) => {
+          html = ' <div class="spinner"></div>';
+
+          outputBody.innerHTML = "";
+          output.style.border = "2px solid #ededed";
+
+          outputBody.insertAdjacentHTML("afterBegin", html);
+
+          setTimeout(() => {
+            if (randomNum > 0.7) {
+              resolve("Successful");
+            } else {
+              resolve("Failed");
+            }
+          }, 500);
+        });
+
+        payPromise.then((res) => {
+          //     <div class="${res && "head"}" style="background-color:${
+          //     res === "Successful" ? "green" : "red"
+          //   }"></div>
+          html = `
+            <p class="message">Your payment of ${amount.value} to ${name.value} has ${res}!</p>
+            `;
+
+          outputBody.innerHTML = "";
+
+          outputHead.style.height = res && "2rem";
+          outputHead.style.backgroundColor =
+            res === "Successful" ? "green" : "red";
+
+          outputBody.insertAdjacentHTML("afterBegin", html);
+
+          name.value = amount.value = "";
+        });
+      });
+    </script>
+  </body>
+</html>
