@@ -119,6 +119,7 @@
           outputBody.innerHTML = "";
           output.style.border = "2px solid #ededed";
           output.style.visibility = "visible";
+          outputHead.style.backgroundColor = "transparent";
           outputBody.insertAdjacentHTML("afterBegin", html);
 
           setTimeout(() => {
@@ -140,7 +141,7 @@
 
           outputBody.innerHTML = "";
 
-          outputHead.style.height = res && "2rem";
+          outputHead.style.height = res ? "2rem" : "0rem";
           outputHead.style.backgroundColor =
             res === "Successful" ? "green" : "red";
 
