@@ -13,6 +13,10 @@
         flex-direction: column;
       }
 
+      .outputHidden {
+        display: none;
+      }
+
       .output-body {
         display: flex;
         align-items: center;
@@ -114,7 +118,7 @@
 
           outputBody.innerHTML = "";
           output.style.border = "2px solid #ededed";
-
+          output.style.visibility = "visible";
           outputBody.insertAdjacentHTML("afterBegin", html);
 
           setTimeout(() => {
@@ -141,6 +145,10 @@
             res === "Successful" ? "green" : "red";
 
           outputBody.insertAdjacentHTML("afterBegin", html);
+
+          setTimeout(() => {
+            output.style.visibility = "hidden";
+          }, 10000);
 
           name.value = amount.value = "";
         });
