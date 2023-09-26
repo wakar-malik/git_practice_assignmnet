@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>DISPLAYING USER DATA</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+      .card {
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0 10px 4px #e4e4e4;
+        padding: 2rem 0;
+        border-radius: 12px;
+      }
+      .name {
+        margin: 1rem 0;
+        font-size: 1.4rem;
+      }
+      .email {
+        color: #727272;
+      }
+      .fetchBtn {
+        padding: 0.8rem 2.5rem;
+        font-size: 2rem;
+        background-color: #ffab35;
+        border: none;
+        color: #fff;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+
+    <button class="fetchBtn">Fetch Users</button>
+    <script>
+      const fetchUsers = document.querySelector(".fetchBtn");
+      const container = document.querySelector(".container");
+
+      fetchUsers.addEventListener("click", function () {
+        async function getUsers() {
+          try {
+            const response = await fetch("https://reqres.in/api/users");
+
+            if (!response.ok) {
+              throw new Error("Users not found!");
+            }
+
+            const { data } = await response.json();
+            console.log(data);
+
+            let html = "";
+
+            data.forEach((user) => {
+              html += `
+                <div class="card">
+                    <img src="${
+                      user.avatar
+                    }" alt="${user.first_name.toLowerCase()}">
+                    <p class="name">${user.first_name} ${user.last_name}</>
+
+                    <p class="email">${user.email}</>
+                </div>
+              `;
+            });
+
+            container.insertAdjacentHTML("afterbegin", html);
+
+            fetchUsers.classList.add("hidden");
+          } catch (error) {
+            console.log(error.message);
+          }
+        }
+
+        getUsers();
+      });
+    </script>
+  </body>
+</html>
