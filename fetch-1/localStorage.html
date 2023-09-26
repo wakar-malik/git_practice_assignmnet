@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOCAL STORAGE EXERCISE</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        display: flex;
+        align-items: flex-start;
+        column-gap: 3rem;
+        justify-content: center;
+        margin-top: 3rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 1.1rem;
+      }
+      caption {
+      }
+      table,
+      tr,
+      th,
+      td {
+        border: 2px solid #000;
+      }
+      input {
+        width: 100%;
+        padding: 0.4rem;
+      }
+      label:nth-of-type(2) {
+        margin-top: 1rem;
+        margin-bottom: 0.3rem;
+        display: inline-block;
+      }
+      button {
+        width: 100%;
+        margin-top: 2rem;
+        padding: 0.5rem;
+        border: none;
+        background-color: rgb(251, 178, 51);
+        color: #fff;
+        font-size: 1.1rem;
+      }
+
+      form,
+      .tableContainer {
+        width: 30%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <label for="name">Name</label>
+        <br />
+        <input type="text" id="name" placeholder="Name" />
+        <br />
+        <label for="name">Age</label>
+        <br />
+        <input type="text" id="age" placeholder="Age" />
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+
+      <div class="tableContainer">
+        <table>
+          <caption>
+            Users
+          </caption>
+          <thead>
+            <tr>
+              <th>Sno.</th>
+              <th>Name</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button class="userData">Get Users Data</button>
+      </div>
+    </div>
+    <script>
+      const form = document.querySelector("form");
+      const name = document.querySelector("#name");
+      const age = document.querySelector("#age");
+      const tBody = document.querySelector("tbody");
+      const userDataBtn = document.querySelector(".userData");
+      const usersData = [];
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const localUsersData = JSON.parse(localStorage.getItem("users"));
+
+        if (name.value === "" || age.value === "") {
+          alert("Please provide proper details!");
+          return;
+        }
+
+        if (localUsersData) {
+          for (let i = 0; i < localUsersData.length; i++) {
+            usersData.push(localUsersData[i]);
+          }
+        }
+
+        usersData.push({ name: name.value, age: age.value });
+
+        localStorage.setItem("users", JSON.stringify(usersData));
+
+        usersData.length = 0;
+
+        name.value = age.value = "";
+      });
+
+      userDataBtn.addEventListener("click", function () {
+        const usersData = JSON.parse(localStorage.getItem("users"));
+
+        if (!usersData) {
+          alert("Users data not found!");
+          return;
+        }
+
+        tBody.innerHTML = "";
+        let html = "";
+
+        usersData.forEach((user, index) => {
+          html += `<tr>
+                <td>${index + 1}</td>
+                <td>${user.name}</td>
+                <td>${user.age}</td>
+                </tr>`;
+        });
+
+        tBody.insertAdjacentHTML("afterBegin", html);
+      });
+    </script>
+  </body>
+</html>
