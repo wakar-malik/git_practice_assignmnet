@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <title>OMDB MOVIE APP</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      .heading {
+        margin-bottom: 1rem;
+      }
+      .form_container,
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .form_container {
+        width: 500px;
+        margin: auto;
+        margin-top: 3rem;
+      }
+      form {
+        width: 100%;
+      }
+      input {
+        padding: 0.3rem;
+        width: 100%;
+        text-align: center;
+        font-size: 1.3rem;
+      }
+      .submitBtn {
+        padding: 0.4rem 2rem;
+        font-size: 1.1rem;
+        border: none;
+        color: #fff;
+        background-color: #fdb33d;
+      }
+      .movie_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+      }
+      .movieCard {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        box-shadow: 0 0 10px 3px #e0e0e0;
+        padding: 3rem 3rem 1.5rem;
+      }
+      .title {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+      .movieCard > p {
+        margin-bottom: 1rem;
+        font-weight: 800;
+      }
+      .movieCard > p > span {
+        font-weight: 400;
+      }
+      .errorMsg {
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form_container">
+      <h1 class="heading">Search for movie!</h1>
+      <form>
+        <input type="text" /><br />
+        <button type="Submit" class="submitBtn">Search</button>
+      </form>
+    </div>
+
+    <div class="movie_container"></div>
+
+    <script>
+      const form = document.querySelector("form");
+      const submitBtn = document.querySelector(".submitBtn");
+      const movieContainer = document.querySelector(".movie_container");
+      const input = document.querySelector("input");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let html = "";
+
+        if (!input.value) {
+          alert("Enter a movie name!");
+          return;
+        }
+
+        fetch(`http://www.omdbapi.com/?t=${input.value}&apikey=26a2241a`)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            movieContainer.innerHTML = "";
+
+            if (data.Response === "False") {
+              html = `<p class="errorMsg">${input.value} ${data.Error}<p>`;
+              movieContainer.insertAdjacentHTML("afterBegin", html);
+
+              throw new Error(data.Error);
+            }
+
+            const {
+              Title: title,
+              Actors: actors,
+              Language: language,
+              Poster: poster,
+              Released: released,
+              Runtime: runtime,
+              imdbRating,
+            } = data;
+
+            html = `<div class="movieCard">
+                <img src="${poster}" alt="" />
+                <h1 class="title">${title}</h1>
+                <p>DURATION: <span>${runtime}</span></p>
+                <p>CAST: <span>${actors}</span></p>
+                <p>LANGUAGE: <span>${language}</span></p>
+                <p>RATING: <span>${imdbRating}</span></p>
+                </div>`;
+
+            movieContainer.insertAdjacentHTML("afterBegin", html);
+            input.value = "";
+            input.blur();
+          })
+          .catch((error) => console.log(error.message));
+      });
+    </script>
+  </body>
+</html>
