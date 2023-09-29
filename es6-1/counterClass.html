@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter Class</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .counterContainer {
+        text-align: center;
+      }
+      button {
+        padding: 0.4rem 2rem;
+        font-size: 1.9rem;
+        color: #fff;
+        background-color: yellowgreen;
+        border: none;
+      }
+      h1 {
+        font-size: 5rem;
+      }
+    </style>
+  </head>
+
+  <div class="counterContainer">
+    <h1 class="count"></h1>
+    <div class="buttonContainer">
+      <button class="superBtn">Stop</button>
+      <button class="inc">Increment</button>
+      <button class="dec">Decrement</button>
+    </div>
+  </div>
+
+  <body>
+    <script>
+      const count = document.querySelector(".count");
+      const superBtn = document.querySelector(".superBtn");
+      const incBtn = document.querySelector(".inc");
+      const decBtn = document.querySelector(".dec");
+      let intervalId = null;
+
+      class Counter {
+        constructor(count) {
+          this.count = count;
+        }
+      }
+
+      const newCounter = new Counter(0);
+
+      function autoCounter() {
+        count.innerHTML = newCounter.count;
+        intervalId = setInterval(() => {
+          newCounter.count++;
+          count.innerHTML = newCounter.count;
+        }, 1000);
+      }
+
+      superBtn.addEventListener("click", () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+          superBtn.textContent = "Start";
+        } else {
+          autoCounter();
+          superBtn.textContent = "Stop";
+        }
+      });
+
+      incBtn.addEventListener("click", () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+
+        newCounter.count++;
+        count.innerHTML = newCounter.count;
+      });
+
+      decBtn.addEventListener("click", () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+
+        if (newCounter.count === 0) {
+          return;
+        }
+
+        newCounter.count--;
+        count.innerHTML = newCounter.count;
+      });
+
+      autoCounter();
+    </script>
+  </body>
+</html>

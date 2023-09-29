@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const arr = ["MA", "SA", "I", "SCH", "OOL"];
+      const output = [];
+
+      const lowerChar = (str) => str.toLowerCase();
+
+      // converting given word to lowercase
+      console.log(lowerChar("MAsaI scHOOl"));
+
+      // converting array of lowercase
+
+      const convertArr = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+          output.push(lowerChar(arr[i]));
+        }
+      };
+
+      convertArr(arr);
+
+      console.log(output);
+    </script>
+  </body>
+</html>
