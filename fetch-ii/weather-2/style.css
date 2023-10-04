@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+}
+
+.time {
+  color: red;
+  margin-bottom: 0.6rem;
+}
+
+.hidden {
+  display: none;
+}
+.spinner {
+  height: 60px;
+  width: 60px;
+  margin: auto;
+  background-color: #ccc;
+  border-radius: 100%;
+  border: 10px solid #000;
+  border-color: #000 #ededed #ededed;
+  animation-name: spinner;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  margin: auto;
+  padding: 3rem;
+}
+
+input {
+  padding: 0.3rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+button {
+  font-size: 1.5rem;
+  padding: 0.4rem 2rem;
+  border: none;
+  color: #fff;
+  background-color: rgb(132, 132, 41);
+}
+
+.tempTitle,
+.windTitle {
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.cityDays {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.dayContainer {
+  padding: 1rem;
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 6px 10px #e9e9e9;
+}

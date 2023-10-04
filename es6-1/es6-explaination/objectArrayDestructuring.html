@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const obj = {
+        userName: "steven",
+        userAge: 20,
+        userQualification: "Btech",
+        userAddress: "Newyork",
+      };
+
+      const arr = [20, 40, 60, 90, 50];
+
+      // let userName = obj.userName;
+      // let userAge = obj.userAge;
+
+      // let num1 = arr[0];
+      // let num2 = arr[1];
+      // let num3 = arr[3];
+      // let num4 = arr[4];
+
+      const { userName, userAge, userQualification } = obj;
+
+      const [num1, num2, num3, num4] = arr;
+
+      console.log(userName, userAge, userQualification);
+
+      console.log(num1, num2, num3, num4);
+    </script>
+  </body>
+</html>

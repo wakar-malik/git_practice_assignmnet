@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const Person = function (name, age, address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+      };
+
+      const steven = new Person("Steven", 20, "Newyork");
+
+      // defining an es6 class
+      class Person2 {}
+
+      class Steven extends Person {}
+
+      console.log(steven);
+    </script>
+  </body>
+</html>
