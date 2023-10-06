@@ -18,6 +18,10 @@
         console.log("push", this.array);
       }
 
+      top() {
+        console.log(this.array.at(-1));
+      }
+
       pop() {
         this.array.length = this.array.length - 1;
         console.log("pop", this.array);
@@ -32,6 +36,7 @@
         for (let i = this.size - 1; i >= 0; i--) {
           reverse.push(this.array[i]);
         }
+        this.array = reverse;
         console.log("reverse", reverse);
       }
     }
@@ -42,5 +47,7 @@
     array.pop();
     array.print();
     array.reverse();
+    console.log(array.size);
+    array.top();
   </script>
 </html>
