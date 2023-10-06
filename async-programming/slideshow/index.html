@@ -3,24 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>slideshow</title>
+    <title>Slide show</title>
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-      #slideContainer {
+      body {
+        display: grid;
+        place-items: ce;
+        height: 100vh;
+      }
+      .sliderContainer {
         width: 50%;
         margin: auto;
+        border: 2px solid;
       }
       img {
-        height: 550px;
         width: 100%;
-        margin-top: 20px;
+        height: 400px;
       }
 
-      #btnContainer {
+      .btnContainer {
         display: flex;
         justify-content: center;
         margin-top: 20px;
@@ -29,36 +34,30 @@
       button {
         padding: 1rem 2rem;
         margin-right: 10px;
-        background-color: brown;
+        background-color: #a52a2a;
         border: none;
         color: #fff;
         font-size: 2rem;
       }
+      button:hover {
+        background-color: #d31717;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
-    <div id="slideContainer">
-      <img src="" alt="" />
-    </div>
-    <div id="btnContainer">
-      <button id="pre">Previous</button>
-      <button id="stop">Stop</button>
-      <button id="start">Start</button>
-      <button id="next">Next</button>
+    <div class="sliderContainer">
+      <img src="" alt="" class="img" />
+      <div class="btnContainer">
+        <button class="previousBtn">Previous</button>
+        <button class="nextBtn">Next</button>
+        <button class="stopBtn">Stop</button>
+        <button class="startBtn">Start</button>
+      </div>
     </div>
   </body>
+
   <script>
-    let img = document.querySelector("img");
-    let pre = document.getElementById("pre");
-    let nex = document.getElementById("next");
-    let stp = document.getElementById("stop");
-    let strt = document.getElementById("start");
-
-    pre.addEventListener("click", previous);
-    nex.addEventListener("click", next);
-    stp.addEventListener("click", stop);
-    strt.addEventListener("click", start);
-
     let imagesData = [
       "Images/img1.jpg",
       "Images/img2.jpg",
@@ -72,57 +71,62 @@
       "Images/img10.jpg",
     ];
 
-    let currentImg = 0;
+    const img = document.querySelector(".img");
+    const previousBtn = document.querySelector(".previousBtn");
+    const nextBtn = document.querySelector(".nextBtn");
+    const stopBtn = document.querySelector(".stopBtn");
+    const startBtn = document.querySelector(".startBtn");
+    let activeImg = 0;
+    let slideIntervalId = null;
 
-    let slideInterval = null;
+    previousBtn.addEventListener("click", function previousSlide() {
+      clearInterval(slideIntervalId);
+      activeImg -= 1;
+      img.setAttribute("src", imagesData.at(activeImg));
 
-    slideInterval = setInterval(slider, 2500);
-
-    function slider() {
-      currentImg++;
-      img.setAttribute("src", images[currentImg]);
-
-      if (currentImg == images.length) {
-        currentImg = 0;
+      if (activeImg == -1) {
+        activeImg = imagesData.length - 1;
       }
-    }
+    });
 
-    function previous() {
-      clearInterval(slideInterval);
-      currentImg--;
-      img.setAttribute("src", images[currentImg]);
+    nextBtn.addEventListener("click", function nextSlide() {
+      clearInterval(slideIntervalId);
+      activeImg += 1;
+      img.setAttribute("src", imagesData.at(activeImg));
 
-      if (currentImg == -1) {
-        currentImg = images.length - 1;
+      if (activeImg == imagesData.length) {
+        activeImg = 0;
       }
-    }
-    function next() {
-      clearInterval(slideInterval);
-      currentImg++;
-      img.setAttribute("src", images[currentImg]);
+    });
 
-      if (currentImg == images.length) {
-        currentImg = 0;
-      }
-    }
+    stopBtn.addEventListener("click", function stopSlide() {
+      clearInterval(slideIntervalId);
+      startBtn.disabled = false;
+    });
 
-    function stop() {
-      clearInterval(slideInterval);
-      strt.disabled = false;
-    }
-
-    function start() {
+    startBtn.addEventListener("click", function startSlider() {
       setInterval(slider, 2500);
 
       function slider() {
-        currentImg++;
-        img.setAttribute("src", images[currentImg]);
+        activeImg += 1;
+        img.setAttribute("src", imagesDataat(activeImg));
 
-        if (currentImg == images.length) {
-          currentImg = 0;
+        if (activeImg == imagesData.length) {
+          activeImg = 0;
         }
       }
-      strt.disabled = true;
+      startBtn.disabled = true;
+    });
+
+    slideIntervalId = setInterval(slider, 2500);
+
+    function slider() {
+      activeImg += 1;
+      img.setAttribute("src", imagesData.at(activeImg));
+
+      if (activeImg == imagesData.length) {
+        activeImg = 0;
+      }
     }
   </script>
 </html>
