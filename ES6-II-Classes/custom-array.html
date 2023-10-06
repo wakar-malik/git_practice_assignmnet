@@ -3,9 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CUSTOM ARRAY</title>
+    <title>Custom Array</title>
   </head>
-  <body>
-    <script></script>
-  </body>
+  <body></body>
+  <script>
+    class customArray {
+      constructor(...array) {
+        this.size = array.length;
+        this.array = [...array];
+      }
+
+      push(element) {
+        this.array = [...this.array, element];
+        console.log("push", this.array);
+      }
+
+      pop() {
+        this.array.length = this.array.length - 1;
+        console.log("pop", this.array);
+      }
+
+      print() {
+        console.log("print", ...this.array);
+      }
+
+      reverse() {
+        let reverse = [];
+        for (let i = this.size - 1; i >= 0; i--) {
+          reverse.push(this.array[i]);
+        }
+        console.log("reverse", reverse);
+      }
+    }
+
+    let array = new customArray(1, 2, 3, 4, 5);
+    array.push(6);
+    array.print();
+    array.pop();
+    array.print();
+    array.reverse();
+  </script>
 </html>
