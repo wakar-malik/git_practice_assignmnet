@@ -1,0 +1,10 @@
+--> What is React?
+-React is javscript library to build complex user interfaces easily. 
+
+--> Who made React?
+-Jordan Walke
+
+-->What is Babel?
+-Babel is a transpiler which transpile modern ES6+ js code into ES5 to make modern js compatible for older browsers as well.
+
+-->
