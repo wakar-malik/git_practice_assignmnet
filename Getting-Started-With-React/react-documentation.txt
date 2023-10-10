@@ -7,4 +7,24 @@
 -->What is Babel?
 -Babel is a transpiler which transpile modern ES6+ js code into ES5 to make modern js compatible for older browsers as well.
 
--->
+-->How does Babel convert html code in React into valid code?
+-Transpiler is a tool that is used to convert source code into another source code that is of the same levelThe latest standard version which JavaScript follows is ES2020 which is not fully supported by all browsers hence we make use of a tool such as ‘babel’ so that we can convert it into the code that today’s browser understands.
+
+-->What is ReactDOM used for? Write an example?
+-ReactDOM is a library works in sync with the react library, mani job oif react is to sync the UI with the sata, and then its the ReactDOM library that updates the browser dom, based on the updating, deleting, and updating instructions comes from the React library.
+
+-->What are the packages that you need to import for react to work with?
+-The import package that we need while working with react is react itself, and then we need ReactDOM package to update the browser dom accordingly, and then we need a transpiler as well to transpile modern JS/JSX into browser understandable code.
+
+-->How do you add react to a web application?
+-We need react to make complex user interfaces easily.
+
+-->What is React.createElement?
+-Its a special type of syntax developed by react, when we write some JSX element inside our components then during rendering process react coverts all those JSX element into multiple React.createElement() and those multiple React.createElement() are known as virtual DOM.
+
+-->What are the three properties that createElement accept?
+-first property of createElement() will the type element we want to create. Second property, we pass an object of multiple props, (props is just a special feature of react that allows us to pas data between component). Third property, we pass th child element of that createElement() that we end up as the nested element in the browser DOM.
+
+-->What is the meaning of render and root?
+-root --> root basically means we let ReactDOM know from where it should insert all the element in the browser DOM. It serves as and entry point between all JSX elements and the browser DOM.
+-render --> render means we simple let ReactDOM where it should insert all the JSX elements.
