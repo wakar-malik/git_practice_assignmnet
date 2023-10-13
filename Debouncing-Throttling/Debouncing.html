@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debouncing</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .form {
+        display: block;
+        width: 40%;
+        margin: auto;
+        text-align: center;
+        margin-top: 2rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.6rem;
+        font-size: 1rem;
+        border-radius: 10px;
+        border: 1px solid;
+      }
+      label {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+      .movieContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        gap: 2rem;
+      }
+      .movieCard {
+        width: 200px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form">
+      <label>Search movie</label>
+      <input type="text" />
+    </div>
+
+    <div class="movieContainer"></div>
+
+    <script>
+      const input = document.querySelector("input");
+      const movieContainer = document.querySelector(".movieContainer");
+      let html = "";
+      let timeOut = null;
+
+      input.addEventListener("input", (e) => {
+        e.preventDefault();
+        debouncing(input.value);
+      });
+
+      function displayMovie(movieData) {
+        movieContainer.innerHTML = "";
+        html = "";
+
+        if (!movieData.Poster) {
+          html = `<h1>No movie found!</h1>`;
+          movieContainer.insertAdjacentHTML("afterbegin", html);
+          return;
+        }
+
+        html = `<div class="movieCard">
+            ${
+              movieData.Poster === "N/A"
+                ? `<h3>No Poster found!</h3>`
+                : `<img width="100%" src="${movieData.Poster}" />`
+            }
+                    <h3 style="text-align:center;margin-top:1rem">Movie title: ${
+                      movieData.Title
+                    }</h3>
+               </div>`;
+
+        movieContainer.insertAdjacentHTML("afterbegin", html);
+      }
+
+      function debouncing(query) {
+        if (timeOut) {
+          clearTimeout(timeOut);
+        }
+
+        timeOut = setTimeout(() => getMovies(query), 400);
+      }
+
+      async function getMovies(query) {
+        if (!query) {
+          alert("Enter valid movie name");
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `http://www.omdbapi.com/?apikey=26a2241a&t=${query}`
+          );
+
+          const data = await response.json();
+          displayMovie(data);
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+    </script>
+  </body>
+</html>
